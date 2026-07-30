@@ -112,6 +112,31 @@ Full max on one vehicle ≈ 95% of its purchase price + 85 ▣
 **Every tier displays exact numeric deltas before purchase.** No hidden stats, ever.
 Show the before/after on the stat bars and the resulting 0–100 and top speed.
 
+### 4.1 Engine swaps
+
+Distinct from the Engine upgrade tiers, and the deepest customization in the game.
+A swap replaces the powertrain block wholesale: torque curve, rev range, gear count,
+engine family, and therefore the **audio bank**. Swapping a V6 into a hot hatch does not
+make it a faster hot hatch — it makes it a different car.
+
+```jsonc
+"engineSwaps": [
+  { "id": "swap_v8_na",  "engineFamily": "V8", "priceCoins": 380000, "priceCash": 90,
+    "driverLevel": 30, "torqueCurveOverride": "TC_V8_NA_5L",
+    "massDeltaKg": 95, "comFractionDelta": 0.04, "gearCountOverride": 6 }
+]
+```
+
+Rules:
+- Each vehicle declares which swaps it accepts (`engineSwapSlots` in its data file).
+  A featherweight Track car does not accept a diesel I6.
+- A swap carries its **mass and centre-of-mass penalty**, applied to physics. Dropping a
+  V8 into a front-engined hatch adds 95 kg over the nose and it understeers accordingly.
+  This is the whole point — swaps are a trade, never a free upgrade.
+- Upgrade tiers already purchased for the old engine carry over at their tier level.
+- The stock engine is always re-installable free of charge.
+- Swaps are Coins + Cash, never Tokens.
+
 **Downgrade/refund:** upgrades can be sold back at 60% for Coins. Players experiment
 more when experimentation is not permanent, and more experimentation means more
 engagement with the garage.

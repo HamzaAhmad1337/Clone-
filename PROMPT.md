@@ -562,6 +562,12 @@ Brakes, Suspension, Weight reduction, Aero/downforce, Cooling.
 Each tier displays exact numeric deltas — no hidden stats, ever. Full upgrade tables in
 `docs/09-progression-economy.md`.
 
+**Engine swaps** are separate from and deeper than upgrade tiers: a swap replaces the
+whole powertrain — torque curve, rev range, gear count, engine family, and audio bank —
+and carries its own mass and centre-of-mass penalty. Dropping a V8 into a front-engined
+hatch adds 95 kg over the nose and it understeers for it. A swap is a trade, never a
+free upgrade. Spec in `docs/09-progression-economy.md` §4.1.
+
 ---
 
 ## 14. ECONOMY, PROGRESSION, AND CONTENT
@@ -722,7 +728,11 @@ and clamps bloom.
 for content wiring, VFX, and UI binding (never for logic) · Chaos Vehicles (extended
 with a custom arcade layer) · Enhanced Input · MetaSounds · UMG + CommonUI · Mass Entity
 or a custom pooled system for distant traffic · Behavior Trees + a custom lightweight
-FSM for near traffic · Data Assets + JSON for content · Git + Git LFS.
+FSM for near traffic · EQS for police positioning queries only — intercept points,
+roadblock placement, boxing formations, the one place a spatial query beats hand-rolled
+logic; ordinary traffic does not need it and must not pay for it · Data Assets + JSON
+for content · Epic Online Services for post-launch networking · Git + Git LFS ·
+GitHub Projects for tracking, with its milestones mirroring §20 one-to-one.
 
 *(Engine-agnostic mapping to Unity and Godot is in
 `docs/02-technical-architecture.md` §9, in case of a stack change. Every specification

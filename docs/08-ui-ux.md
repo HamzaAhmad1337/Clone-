@@ -213,7 +213,21 @@ options, toggle-vs-hold per action.
 
 **Gameplay:** units (km/h / mph), transmission type, individual assist toggles, HUD
 preset and per-element toggles, camera default, auto-restart on crash, tutorial hints,
-speedometer style.
+speedometer style, and **difficulty**.
+
+Difficulty is a preset that writes to the individual assist and tolerance settings
+rather than a hidden global multiplier — the player can always see exactly what it
+changed and adjust any one of them afterwards:
+
+| Preset | Assists | Traffic density | Collision tolerance | Leaderboards |
+|---|---|---|---|---|
+| Relaxed | All on, steering assist 100% | ×0.75 | Glancing blows up to 25 km/h forgiven | Flagged separately |
+| Standard | All on, steering assist 100% | ×1.00 | Per `docs/01` §7 | Full |
+| Demanding | ESC and lane-snap off | ×1.15 | Glancing-blow window halved | Full |
+| Punishing | All off | ×1.30 | Any contact ends the run | Full |
+
+Relaxed runs still earn full Coins and XP — the flag exists only to keep the global
+leaderboards comparable, and it is stated plainly on the setting rather than buried.
 
 **Accessibility:** the full list in `PROMPT.md` §18, on its own tab, not buried.
 

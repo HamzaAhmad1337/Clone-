@@ -255,7 +255,33 @@ effects have absolute priority over ambience.
 
 ---
 
-## 9. Photo Mode
+## 9. Animation checklist
+
+Consolidated so nothing falls between the vehicle, camera, and VFX specs. Every item is
+required on every drivable vehicle unless noted.
+
+| Animation | Driven by | Notes |
+|---|---|---|
+| Steering wheel | Steering input | Correct lock ratio per vehicle — a 34° road lock is ~1.5 turns lock-to-lock at the wheel, not 34° of wheel rotation |
+| Driver hands and arms | Steering, via two-bone IK | Hand-over-hand above 90° of wheel rotation |
+| Pedals | Throttle / brake / clutch inputs | Clutch pedal only on Manual |
+| Gear shifter | Gear change events | H-pattern gate on Manual, sequential throw on Sequential, none on Single |
+| Suspension | Per-wheel compression | Visible arms, springs, and driveshafts where modelled |
+| Wheel rotation | Wheel angular velocity | Rotational blur mask above 900 rpm (§7) to kill strobing |
+| **Wheel wobble** | Wheel damage state | Visible camber and toe deviation after a Tier-4 impact or a spike strip, plus a rotational wobble that feeds a matching low-frequency rumble and steering pull |
+| Brake caliper heat | Accumulated brake energy | Emissive glow, ~20 s fade (§7) |
+| Door opening | Garage reveal, Photo Mode | Driver-side only |
+| **Driver entering** | First-unlock garage reveal | Door opens, driver enters, seatbelt, hands to wheel, engine start, camera push-in. 4 s, skippable, plays once per vehicle. Also used as the Free Ride start when a "cinematic starts" option is on |
+| Body roll / dive / squat | Weight transfer | Coupled to actual per-wheel grip, never cosmetic (`docs/03` §2) |
+| Crash deformation | Impact accumulation buffer | GPU vertex offset (`docs/03` §8.2) |
+| Detached parts | Impact energy | Pooled rigid bodies, physics-driven |
+| Nitrous activation | Nitrous input | Exhaust flame burst, FOV punch, intake flap where modelled |
+| Wipers | Weather wetness | Cockpit and hood cameras; clears the lens droplet effect |
+| Indicators / hazards | Traffic AI intent, player input | Traffic blinker discipline is per-personality (`docs/04` §2) |
+| Camera shake layers | Eight additive sources | Individually scalable in Accessibility (§4) |
+| Antenna / mirror sway | Speed and lateral g | Tiny, cheap, and does a surprising amount for the sense of speed |
+
+## 10. Photo Mode
 
 Free-fly camera (with a distance leash of 40 m), time frozen, and full control over:
 FOV (10–140°), aperture and focal distance with focus peaking, camera roll, exposure,

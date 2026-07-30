@@ -45,6 +45,21 @@ A full cross-document audit was run after the first draft. Corrections applied:
 | Roadmap | Phase durations summed to 76 weeks against a stated total of 64 | Both figures now shown, with the overlap made explicit |
 | Balance | Asserted near-miss share of 55–75% against a design that produces ~94% | Assertion widened to 70–95%, matching the design thesis |
 
+### Specification — coverage pass
+
+A line-by-line audit against the original brief found six items with no home in the
+spec. Five were added; one is a deliberate deviation.
+
+| Item | Resolution |
+|---|---|
+| Engine swaps | Added as `docs/09` §4.1 — a full powertrain replacement with its own mass and centre-of-mass penalty, distinct from Engine upgrade tiers |
+| Difficulty setting | Added to `docs/08` §7 as a preset that writes visibly to individual assist and tolerance settings, never a hidden multiplier |
+| EQS | Added to the stack in `PROMPT.md` §19, scoped to police positioning queries only |
+| Wheel wobble | Added to the new animation checklist, `docs/06` §9, tied to the damage system |
+| Driver entering | Added to the same checklist as the first-unlock garage reveal |
+| Project tracking | GitHub Projects added to the stack, milestones mirroring §20 |
+| **Ragdoll debris** | **Deliberately not implemented for people.** Vehicle debris only — no pedestrians exist in the game and none are struck. This keeps the ESRB E10+ / PEGI 7 target in `PROMPT.md` §1. Stated explicitly in `docs/03` §8.3 |
+
 ---
 
 ## Milestone log
