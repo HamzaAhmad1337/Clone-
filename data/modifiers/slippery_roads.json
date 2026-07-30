@@ -1,0 +1,10 @@
+{
+  "id": "slippery_roads",
+  "displayNameKey": "modifier.slippery_roads.name",
+  "descriptionKey": "modifier.slippery_roads.desc",
+  "effects": {
+    "surfaceGripMultiplier": 0.72,
+    "forceWeather": "rain",
+    "payoutMultiplier": 1.25
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "id": "upgrades",
+  "sellbackFraction": 0.60,
+  "cashCostByTier": [0, 0, 0, 25, 60],
+  "priceFractionsByTier": [0.04, 0.08, 0.15, 0.26, 0.42],
+  "categories": {
+    "engine": {
+      "displayNameKey": "upgrade.engine.name",
+      "effects": [
+        { "stat": "torqueMultiplier", "perTier": 0.06, "display": "+6% torque" }
+      ]
+    },
+    "turbo": {
+      "displayNameKey": "upgrade.turbo.name",
+      "effects": [
+        { "stat": "torqueMultiplier", "perTier": 0.05, "display": "+5% torque" },
+        { "stat": "boostResponse", "perTier": 0.08, "display": "+8% boost response" }
+      ]
+    },
+    "nitrous": {
+      "displayNameKey": "upgrade.nitrous.name",
+      "effects": [
+        { "stat": "nitrousCapacitySeconds", "perTier": 1.0, "display": "+1.0 s capacity" },
+        { "stat": "nitrousRefillSeconds", "perTier": -1.0, "display": "-1.0 s refill" }
+      ]
+    },
+    "transmission": {
+      "displayNameKey": "upgrade.transmission.name",
+      "effects": [
+        { "stat": "shiftTimeMultiplier", "perTier": -0.18, "display": "-18% shift time" }
+      ]
+    },
+    "tyres": {
+      "displayNameKey": "upgrade.tyres.name",
+      "compoundPath": ["Stock", "Touring", "Sport", "Sport", "SemiSlick"],
+      "effects": []
+    },
+    "brakes": {
+      "displayNameKey": "upgrade.brakes.name",
+      "effects": [
+        { "stat": "brakeTorqueMultiplier", "perTier": 0.08, "display": "+8% brake torque" },
+        { "stat": "brakeFade", "perTier": -0.06, "display": "-6% fade" }
+      ]
+    },
+    "suspension": {
+      "displayNameKey": "upgrade.suspension.name",
+      "effects": [
+        { "stat": "rollStiffnessMultiplier", "perTier": 0.07, "display": "+7% roll stiffness" },
+        { "stat": "transitionGripMultiplier", "perTier": 0.05, "display": "+5% transition grip" }
+      ]
+    },
+    "weight": {
+      "displayNameKey": "upgrade.weight.name",
+      "effects": [
+        { "stat": "massMultiplier", "perTier": -0.025, "display": "-2.5% weight" }
+      ]
+    },
+    "aero": {
+      "displayNameKey": "upgrade.aero.name",
+      "effects": [
+        { "stat": "downforceMultiplier", "perTier": 0.09, "display": "+9% downforce" },
+        { "stat": "dragMultiplier", "perTier": 0.02, "display": "+2% drag" }
+      ]
+    },
+    "cooling": {
+      "displayNameKey": "upgrade.cooling.name",
+      "effects": [
+        { "stat": "heatBuildupMultiplier", "perTier": -0.15, "display": "-15% heat buildup" }
+      ]
+    }
+  }
+}

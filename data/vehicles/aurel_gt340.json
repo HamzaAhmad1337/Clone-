@@ -1,0 +1,101 @@
+{
+  "id": "aurel_gt340",
+  "displayNameKey": "vehicle.aurel_gt340.name",
+  "marque": "Aurel",
+  "class": "Sports",
+  "unlock": {
+    "priceCoins": 420000,
+    "priceCash": null,
+    "driverLevel": 18,
+    "achievement": null,
+    "event": null
+  },
+  "physics": {
+    "massKg": 1420,
+    "centreOfMass": { "wheelbaseFraction": 0.48, "heightM": 0.46 },
+    "wheelbaseM": 2.62,
+    "trackFrontM": 1.60,
+    "trackRearM": 1.62,
+    "widthM": 1.88,
+    "lengthM": 4.42,
+    "dragCoefficient": 0.31,
+    "frontalAreaM2": 2.05,
+    "downforceCoefficientFront": 0.18,
+    "downforceCoefficientRear": 0.26,
+    "driveLayout": "RWD",
+    "driveSplitFrontPct": 0,
+    "tyreRadiusM": 0.34,
+    "tyreWidthM": 0.265,
+    "defaultCompound": "Sport",
+    "steeringLockDeg": 34.0,
+    "suspension": {
+      "restLengthM": 0.32,
+      "travelM": 0.16,
+      "springStiffnessNPerM": { "front": 62000, "rear": 58000 },
+      "damperRateNsPerM": { "front": 5400, "rear": 5100 },
+      "antiRollStiffnessNPerM": { "front": 18000, "rear": 14000 },
+      "maxForceMultiplier": 3.0
+    }
+  },
+  "powertrain": {
+    "engineFamily": "V6Turbo",
+    "displacementL": 3.0,
+    "cylinders": 6,
+    "idleRpm": 850,
+    "maxRpm": 7600,
+    "redlineRpm": 7200,
+    "torqueCurveNm": [
+      [850, 200], [1500, 330], [2500, 410], [3500, 445],
+      [5000, 460], [6000, 440], [7000, 410], [7600, 350]
+    ],
+    "engineBrakeCoefficient": 0.16,
+    "inertiaKgM2": 0.24,
+    "transmission": {
+      "type": "Sequential",
+      "gearRatios": [3.42, 2.24, 1.66, 1.28, 1.03, 0.84],
+      "reverseRatio": 3.10,
+      "finalDrive": 3.73,
+      "shiftTimeMs": 90,
+      "efficiency": 0.95
+    },
+    "nitrous": { "capacitySeconds": 4.0, "torqueMultiplier": 1.38, "refillSeconds": 12.0 }
+  },
+  "derivedStats": {
+    "topSpeedKmh": 285,
+    "zeroToHundredS": 4.3,
+    "hundredToZeroM": 34.5,
+    "peakPowerKw": 300,
+    "peakPowerRpm": 7000,
+    "handlingRating": 78,
+    "brakingRating": 74
+  },
+  "visual": {
+    "meshLod0": "SM_Aurel_GT340_LOD0",
+    "interiorMesh": "SM_Aurel_GT340_Interior",
+    "paintZones": 2,
+    "defaultPaint": { "type": "Metallic", "colorHex": "#B32222" },
+    "wheelSlots": ["front", "rear"],
+    "bodyKitSlots": ["frontBumper", "rearBumper", "sideSkirt", "spoiler", "hood", "diffuser"],
+    "exhaustTipCount": 2,
+    "exhaustSockets": ["exhaust_l", "exhaust_r"],
+    "driverSeatSocket": "seat_driver",
+    "cockpitCameraSocket": "cam_cockpit",
+    "gaugeBindings": {
+      "tachometer": { "socket": "gauge_tach", "minRpm": 0, "maxRpm": 8000, "sweepDeg": 250 },
+      "speedometer": { "socket": "gauge_speed", "maxKmh": 320, "sweepDeg": 250 }
+    }
+  },
+  "audio": {
+    "engineBank": "EB_V6Turbo_A",
+    "pitchOffsetSemitones": 0.5,
+    "exhaustLayer": "EX_Sport_Twin",
+    "turboLayer": "TB_Medium",
+    "hornSample": "HORN_Sport_02",
+    "backfireEnabled": true
+  },
+  "upgradeCaps": {
+    "engine": 5, "turbo": 5, "nitrous": 5, "transmission": 5, "tyres": 5,
+    "brakes": 5, "suspension": 5, "weight": 5, "aero": 5, "cooling": 5
+  },
+  "tags": ["rwd", "turbo", "midEngine", "starterSuper"]
+}

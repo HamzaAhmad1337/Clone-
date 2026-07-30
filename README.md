@@ -1,0 +1,94 @@
+# Highway Rush — Master Development Prompt
+
+A complete, buildable specification for an endless arcade highway-driving game in the
+Traffic Racer genre — written as a **prompt for an AI coding assistant**, not as a
+wishlist.
+
+> **[→ Start here: `PROMPT.md`](PROMPT.md)**
+
+---
+
+## What this is
+
+Most "make me a game like X" prompts are lists of features. An AI coding agent given a
+list of features produces a different game every session, because every unspecified
+number is a decision the model re-makes from scratch.
+
+This specification removes those decisions. It fixes the near-miss threshold at 1.20 m
+and explains why. It gives the scoring formula, the traffic-density curve, the
+suspension constants, the camera FOV at each speed, the XP curve, and the frame budget
+per thread. Where a number could go either way, it says which way and what breaks
+otherwise.
+
+The result is a spec that converges: two sessions, two models, or two developers
+working from it build recognizably the same game.
+
+## How to use it
+
+1. **Paste `PROMPT.md` into your coding assistant** as the opening instruction of a new
+   project. It is self-contained and ~10k words.
+2. **Work milestone by milestone** from `PROMPT.md` §20. Do not skip M1 or M4 — they
+   are hard gates, and everything downstream depends on them.
+3. **Point the assistant at `docs/` for depth.** `PROMPT.md` is the contract; `docs/` is
+   the reference manual. Where a number appears in both, `docs/` wins.
+4. **Use `data/` as the content template.** Adding a car, mode, or environment should
+   never require code — the schemas enforce that.
+
+## Contents
+
+| File | What's in it |
+|---|---|
+| **[`PROMPT.md`](PROMPT.md)** | The master prompt. 22 sections, self-contained, paste-ready |
+| [`docs/01-game-design.md`](docs/01-game-design.md) | Design thesis, difficulty curves, near-miss math, progression cadence, anti-frustration rules |
+| [`docs/02-technical-architecture.md`](docs/02-technical-architecture.md) | 22 modules, event bus, pooling, threading, save format, engine portability |
+| [`docs/03-vehicle-physics.md`](docs/03-vehicle-physics.md) | Suspension, tire model, powertrain, aero, assists, per-class tuning tables, damage |
+| [`docs/04-traffic-ai.md`](docs/04-traffic-ai.md) | 8 driver personalities, IDM following, the Near-Miss Contract, solvability solver, police AI |
+| [`docs/05-road-generation.md`](docs/05-road-generation.md) | Chunk streaming, the grammar, floating origin, sightline constraint, materials |
+| [`docs/06-graphics-art.md`](docs/06-graphics-art.md) | Art direction, quality tiers, the speed rig, 8 cameras, weather and time-of-day visuals |
+| [`docs/07-audio.md`](docs/07-audio.md) | Multi-layer engine model, the near-miss whoosh, adaptive music, mixing, voice |
+| [`docs/08-ui-ux.md`](docs/08-ui-ux.md) | Design language, screen map, HUD, garage, results, localization |
+| [`docs/09-progression-economy.md`](docs/09-progression-economy.md) | Currencies, income model, pricing, upgrades, XP curve, missions, leaderboards |
+| [`docs/10-data-schemas.md`](docs/10-data-schemas.md) | JSON schemas for every content type + validation lints |
+| [`docs/11-optimization.md`](docs/11-optimization.md) | Frame budgets per thread, LOD, pooling, the hitch problem, memory ceilings |
+| [`docs/12-roadmap.md`](docs/12-roadmap.md) | 18 milestones with acceptance criteria, schedule, risk register |
+| [`docs/13-content-manifest.md`](docs/13-content-manifest.md) | 80 vehicles, 14 environments, 100 achievements, cosmetics, asset budgets |
+| [`data/`](data/) | Working example content files and their JSON Schemas |
+
+## The five ideas that matter most
+
+Everything else in this repo is detail. These five are the game:
+
+1. **The near miss is the entire game.** Distance and speed are just delivery vehicles
+   for near misses. Scoring is super-linear in proximity, speed, and combo — a ~180×
+   spread between a lazy pass and a perfect one.
+
+2. **The Near-Miss Contract.** Once the player's bumper passes a traffic vehicle's rear
+   bumper, that vehicle loses lane-change and braking authority for 0.9 seconds. Without
+   this rule the game feels cheap and players quit. With it, every death is legible.
+
+3. **The solvability guarantee.** Every spawn wave must contain a threadable path,
+   verified at spawn time. Difficulty comes from *narrow* gaps, never from *no* gaps.
+
+4. **The speed rig.** Ten coupled effects — FOV, camera, blur, vignette, aberration,
+   vibration, particles, audio filtering — driven by one normalized speed value.
+   Perceived speed should exceed actual speed by ~15%.
+
+5. **M1 is a hard gate.** If a grey box on an empty plane isn't fun to drive, no amount
+   of content fixes it. Budget three weeks and spend all of them there.
+
+## Scope note
+
+This is a specification, not an implementation — there is no engine project here yet.
+`PROMPT.md` §20 is the build order for producing one.
+
+The suggested stack is Unreal Engine 5.6 + C++, but every number, curve, formula, and
+rule in `docs/` is engine-independent. `docs/02` §9 maps the engine-specific concepts to
+Unity 6 and Godot 4.4.
+
+## Originality
+
+Highway Rush is *inspired by* the Traffic Racer genre and is entirely original in code,
+assets, branding, and content. Every marque, vehicle, place name, and brand in this
+specification is invented. No real manufacturer names, logos, or licensed body shapes
+are used anywhere, and reproducing any shipped game's assets is prohibited by
+`PROMPT.md` §0.

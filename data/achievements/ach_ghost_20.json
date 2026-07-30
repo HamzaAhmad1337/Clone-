@@ -1,0 +1,16 @@
+{
+  "id": "ach_ghost_20",
+  "displayNameKey": "ach.ghost_20.name",
+  "descriptionKey": "ach.ghost_20.desc",
+  "tier": "Gold",
+  "hidden": false,
+  "objective": {
+    "type": "threshold",
+    "event": "RunEnded",
+    "filter": { "contactCount": 0 },
+    "field": "distanceKm",
+    "target": 20
+  },
+  "reward": { "coins": 75000, "cash": 80, "tokens": 5 },
+  "steamApiName": "GHOST_20"
+}

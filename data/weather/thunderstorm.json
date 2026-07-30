@@ -1,0 +1,30 @@
+{
+  "id": "thunderstorm",
+  "displayNameKey": "weather.thunderstorm.name",
+  "surfaceGripMultiplier": 0.74,
+  "sightlineMetres": 260,
+  "wetness": 1.0,
+  "snowCover": 0.0,
+  "windVector": { "xMps": 9.0, "yMps": 0.0, "gustMps": 14.0, "gustPeriodS": 7.0 },
+  "particleSystem": "PS_Rain_Heavy",
+  "lensEffect": "LE_Droplets_Heavy",
+  "skyPreset": "SKY_Storm",
+  "sunIntensityMultiplier": 0.22,
+  "fogDensity": 0.012,
+  "postProcess": "PP_Storm",
+  "lightning": {
+    "enabled": true,
+    "minIntervalS": 6,
+    "maxIntervalS": 22,
+    "flashDurationMs": 130,
+    "thunderSpeedMps": 343
+  },
+  "audioBed": "AMB_Rain_Heavy",
+  "trafficModifiers": {
+    "speedMultiplier": 0.86,
+    "followDistanceMultiplier": 1.5,
+    "densityMultiplier": 0.85,
+    "headlightsForced": true
+  },
+  "transitionSeconds": { "min": 25, "max": 60 }
+}

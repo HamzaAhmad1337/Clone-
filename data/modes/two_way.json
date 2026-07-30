@@ -1,0 +1,35 @@
+{
+  "id": "two_way",
+  "displayNameKey": "mode.two_way.name",
+  "descriptionKey": "mode.two_way.desc",
+  "unlock": { "driverLevel": 3 },
+  "rules": {
+    "oncomingTraffic": true,
+    "oncomingLaneFraction": 0.5,
+    "failOnCollision": true,
+    "failOnAnyContact": false,
+    "brakeEnabled": true,
+    "throttleFloor": 0.0,
+    "assistsForced": null,
+    "hudPreset": null,
+    "fuelEnabled": false,
+    "timerEnabled": false,
+    "policeEnabled": false,
+    "livesCount": 1
+  },
+  "traffic": {
+    "densityMultiplier": 0.85,
+    "speedMultiplier": 1.0
+  },
+  "scoring": {
+    "nearMissMultiplier": 2.0,
+    "distanceMultiplier": 1.0,
+    "oncomingLanePointsPerSecond": 15,
+    "payoutMultiplier": 1.0
+  },
+  "environment": { "allowAll": true, "forced": null },
+  "timeOfDay": { "allowAll": true, "forced": null },
+  "weather": { "allowAll": true, "forced": null },
+  "modifiers": [],
+  "leaderboards": ["score", "distance", "nearMiss", "topSpeed", "combo"]
+}

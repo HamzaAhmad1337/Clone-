@@ -1,0 +1,52 @@
+{
+  "id": "cyberpunk_city",
+  "displayNameKey": "env.cyberpunk_city.name",
+  "unlock": { "driverLevel": 30, "priceCoins": 210000 },
+  "accentColorHex": "#FF3FA4",
+  "road": {
+    "laneWidthM": 3.65,
+    "trafficSide": "right",
+    "surfaceSet": "asphalt_urban_wet",
+    "barrierLeft": "concrete_jersey",
+    "barrierRight": "city_railing",
+    "markingSet": "urban_neon",
+    "lightingSet": "city_dense",
+    "signSet": "neon_gantry"
+  },
+  "chunkWeights": {
+    "longStraight": 0.9, "gentleCurve": 1.1, "sweeper": 1.0, "crest": 0.4,
+    "dip": 0.5, "tunnel": 1.8, "bridge": 1.4, "overpass": 2.0, "underpass": 1.6,
+    "construction": 0.8, "exitRamp": 1.5, "tollGantry": 0.6, "restStop": 0.2
+  },
+  "laneCountWeights": { "3": 0.2, "4": 0.35, "5": 0.3, "6": 0.15 },
+  "scatter": {
+    "sets": ["skyscraper_a", "holo_billboard", "street_furniture", "neon_sign"],
+    "densityMultiplier": 1.2,
+    "nearRoadFalloffM": 8.0
+  },
+  "atmosphere": {
+    "skyboxSet": "night_city_hdri",
+    "fogDensity": 0.018,
+    "fogHeightFalloff": 0.4,
+    "fogColorHex": "#1A0F2E",
+    "allowedTimesOfDay": ["evening", "night", "midnight"],
+    "allowedWeather": ["clear", "cloudy", "rain", "thunderstorm", "fog"],
+    "weatherWeights": {
+      "clear": 0.30, "cloudy": 0.15, "rain": 0.35, "thunderstorm": 0.10, "fog": 0.10
+    }
+  },
+  "traffic": {
+    "typeWeightOverrides": {
+      "sedan": 0.28, "sportsCar": 0.12, "ev": 0.10, "semiTruck": 0.04, "bus": 0.05
+    },
+    "personalityOverrides": { "aggressive": 0.18, "erratic": 0.10, "timid": 0.08 },
+    "densityMultiplier": 1.15,
+    "speedMeanOffsetKmh": 4
+  },
+  "audio": {
+    "ambienceBed": "AMB_City_Night",
+    "reverbZone": "city_canyon",
+    "musicCueSet": "MUS_Synthwave"
+  },
+  "photoModePresets": ["neon_noir", "blade", "chrome"]
+}

@@ -1,0 +1,18 @@
+{
+  "id": "traffic_semi_a",
+  "type": "semiTruck",
+  "meshSet": "SM_Semi_A",
+  "trailerMeshSet": "SM_Trailer_Box",
+  "lengthM": 16.5,
+  "widthM": 2.60,
+  "heightM": 4.10,
+  "massKg": 26000,
+  "speedMultiplier": 0.80,
+  "personalityWeights": { "professional": 0.6, "normal": 0.3, "hurried": 0.1 },
+  "laneBias": { "0": 0.5, "1": 0.3, "2": 0.15, "3": 0.05 },
+  "colourVariants": ["#FFFFFF", "#2B4C7E", "#8C1A1A", "#3A3A3A", "#C9A227"],
+  "nearMissAudioProfile": "NM_Heavy",
+  "airDisplacementNewtons": 900,
+  "blocksSightline": true,
+  "lodDistances": [60, 140, 260, 500]
+}
