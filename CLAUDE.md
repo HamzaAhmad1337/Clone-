@@ -14,7 +14,7 @@ Read this file first, then `PROMPT.md`, then the `docs/` file relevant to your t
 | **Product** | Highway Rush — an endless arcade highway-driving game for PC |
 | **State** | Specification complete. No engine project exists yet |
 | **Canonical spec** | `PROMPT.md` — 22 sections, self-contained |
-| **Reference manual** | `docs/00`–`docs/18` |
+| **Reference manual** | `docs/00`–`docs/19` |
 | **Content templates** | `data/` — one working example per type |
 | **Build order** | `PROMPT.md` §20, milestones M0–M18 |
 
@@ -122,6 +122,7 @@ spec does not allow, and explain why.
 | Telemetry events, KPIs, balance validation | `docs/16-analytics-telemetry.md` |
 | Packaging, versioning, store, release checklist | `docs/17-build-release.md` |
 | Input devices, force feedback, remapping | `docs/18-input-controls.md` |
+| Firing orders, engine acoustics, sound recording spec | `docs/19-engine-audio-reference.md` |
 
 ---
 
@@ -140,6 +141,13 @@ spec does not allow, and explain why.
   They are the player's primary early-warning signal; culling them is a fairness bug.
 - **Traffic inside the current sightline requirement always renders**, even on Low.
   Cutting a car the player is about to hit is not an optimization.
+- **Indicators carry the same 500 m guarantee as brake lights.** They are a fairness
+  system — the player's only warning that a gap is closing. See `docs/04` §3.6.
+- **A Courtesy Flash yield scores no near miss.** The car moved out of the way, so
+  there is no proximity to reward. This is what stops the mechanic trivialising the
+  game; do not "fix" it by adding a reward. See `docs/04` §3.7.
+- **Motion is forward-only.** No reverse gear, no revisiting passed road. Chunk index
+  is monotonic and freed chunks never come back. See `docs/05` §0.
 
 ---
 

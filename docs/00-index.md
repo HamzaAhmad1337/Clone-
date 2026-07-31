@@ -39,6 +39,11 @@ Use this document three ways:
 | Traffic LOD, 3 tiers | `04` §7 | M3 | T-AI-07 |
 | **The solvability guarantee** | `04` §6 | M3 | T-AI-01 |
 | **The Near-Miss Contract** | `04` §4 | M4 | T-AI-02 |
+| Forward-only motion, no reverse | `05` §0 | M1 | T-FWD-01…06 |
+| Spin recovery | `05` §0.1 | M2 | T-FWD-05 |
+| Indicators as a fairness system, visible to 500 m | `04` §3.6 | M3 | T-AI-10…13 |
+| **The Courtesy Flash** | `04` §3.7 | M3 | T-FLASH-01…11 |
+| Engine order and per-family acoustics | `19` §1–3 | M7 | T-AUD-08…14 |
 | Near-miss detection at 1.20 m / 0.55 m | `PROMPT` §8.1, `01` §3 | M4 | T-SCO-01 |
 | Combo system, 3.2 s window, max 20 | `PROMPT` §8.2 | M4 | T-SCO-02 |
 | Scoring formulas | `PROMPT` §8.3, `01` §3.2 | M4 | T-SCO-03 |
@@ -125,6 +130,7 @@ Use this document three ways:
 | Career ladder steps | 120 | `09` §6.3 | M10 | T-ECO-05 |
 | Languages | 14 | `13` §7 | M17 | T-LOC-01 |
 | Audio assets | ~2,240 | `13` §8 | M7/M12 | T-AUD-07 |
+| Engine families | 15 | `19` §6 | M7 | T-AUD-13 |
 | Police voice lines | ~305 | `04` §8.6, `13` §8 | M9 | T-POL-05 |
 
 ---
@@ -256,3 +262,4 @@ rather than by accident.
 | `16-analytics-telemetry` | Events, KPIs, balance validation | `01`, `09` |
 | `17-build-release` | Packaging, versioning, store, release checklist | `11` |
 | `18-input-controls` | Devices, curves, force feedback, remapping | `03` |
+| `19-engine-audio-reference` | Firing orders, engine order, crank character, per-family recording spec | `07`, `13` |

@@ -88,6 +88,58 @@ defined, and scattered ~130 test assertions across 13 documents with no unified 
 - Convoys replicate four player transforms, not traffic. Identical seeds produce
   identical traffic on every client, so bandwidth stays under 8 KB/s per player.
 
+### Specification — forward-only motion, signalling, and engine acoustics
+
+Four requested features, one of which needed a design guard to avoid breaking the game.
+
+**Forward-only motion** (`docs/05` §0). The player vehicle never travels backward. This
+is a simplification that pays for itself: the chunk index becomes monotonic, streaming
+becomes a ring buffer rather than a bidirectional window, passed chunks are freed
+permanently, and memory is bounded regardless of run length. Consequential removals:
+reverse gear dropped from all vehicles and from the schema, the brake binding is no
+longer "brake / reverse", and the `Backwards` hidden achievement — drive 500 m in
+reverse — was now impossible and has been replaced. Spin recovery (§0.1) handles the one
+case forward-only motion cannot: a player spun to face backward with no way to turn
+round.
+
+**Indicators as a fairness system** (`docs/04` §3.6). Blinkers were previously a line
+inside the lane-change behaviour. They are now specified with the same guarantee as
+brake lights — visible to 500 m at every quality tier, surviving every LOD transition,
+with emissive boosted 40% in Snow and Fog. Signal timing is per-personality, and the
+54% of traffic that signals reliably is deliberately sized so the player learns to trust
+the cue without the road feeling sterile.
+
+**The Courtesy Flash** (`docs/04` §3.7). Flashing high beams asks the nearest car ahead
+to move over, with per-personality yield rates and per-environment modifiers — highest
+on the European Motorway, where keep-right is a legal duty, lowest in Cyberpunk City.
+
+This mechanic could have ruined the game. If flashing cleared the road for free, the
+optimal strategy becomes "flash constantly," traffic stops being an obstacle, and the
+near miss — the entire point — evaporates. Four rules prevent it, and the first is
+load-bearing: **a yielded pass scores no near miss.** The flash is a safety valve that
+costs points, never a scoring strategy. It also costs over 200 m of road at 300 km/h,
+degrades on repeat use, and cannot manufacture a gap, so the solvability guarantee is
+untouched in both directions.
+
+**Engine audio reference** (`docs/19`, new). Web research into engine acoustics and
+game audio practice, written up as the physics behind the 15 families:
+
+- Engine order (`cylinders / 2` for a four-stroke) and the resulting fundamental
+  frequency at every rpm, tabulated per configuration. Getting this wrong makes an
+  engine sound like a different engine no matter how good the samples are.
+- Cross-plane vs flat-plane V8 — uneven versus even exhaust pulse spacing per bank, and
+  therefore low-frequency burble versus high-frequency scream. Kestrel is cross-plane
+  only; Aurel and Axiom are flat-plane. A player must be able to tell them apart blind.
+- Per-family character notes, the crossfade-versus-granular decision with a deferral
+  point at M7, recording specification, and the class→family assignment.
+
+**On real cars:** the research surfaced specific production vehicles, and this document
+deliberately captures their *physics* rather than their badges. Firing orders and
+harmonic content are engineering facts; marque names, body shapes, and recordings of a
+specific car are property. Using real vehicles is a licensing decision, not a technical
+one — the architecture supports it since `engineBank` is just a data field, but nothing
+here assumes it and the spec ships legally clean without it.
+
 ---
 
 ## Milestone log

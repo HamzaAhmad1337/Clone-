@@ -62,6 +62,37 @@ dependency it should not have.
 | T-AI-07 | LOD transitions produce no position discontinuity > 5 cm | Headless |
 | T-AI-08 | Zero pool growth over a 60-min run | Soak |
 | T-AI-09 | Zero frames where visible road < 4.0 s at current speed | Integration |
+| T-AI-10 | Indicators visible and blinking at 500 m on every quality tier | Integration |
+| T-AI-11 | Indicator state survives every LOD transition without a missed blink | Integration |
+| T-AI-12 | Signal timing per personality matches `04` §3.6; ≥ 54% of lane changes are signalled | Headless |
+| T-AI-13 | Hazard lights active on every breakdown, pileup, and stationary vehicle | Headless |
+
+### T-FLASH — Courtesy Flash (`docs/04` §3.7)
+
+| ID | Assertion | Level |
+|---|---|---|
+| T-FLASH-01 | Yield rates per personality match the §3.7 table within 3% over 10,000 flashes | Headless |
+| T-FLASH-02 | **A yielded pass awards zero near-miss points** | Unit |
+| T-FLASH-03 | A willing driver with no acceptable gap does not move, and shows its indicator | Headless |
+| T-FLASH-04 | Flashing can never create or remove a solvable path (§6 unaffected) | Headless |
+| T-FLASH-05 | Repeat-flash penalty applies at −30% per repeat within 6 s | Unit |
+| T-FLASH-06 | Cooldown of 2.5 s enforced; spam cannot exceed it | Unit |
+| T-FLASH-07 | Exactly one vehicle responds per flash | Headless |
+| T-FLASH-08 | Flashing police adds +6 heat and yields nobody | Unit |
+| T-FLASH-09 | Disabled entirely in Hardcore | Unit |
+| T-FLASH-10 | Environment multipliers applied and clamped to [0.05, 0.98] | Unit |
+| T-FLASH-11 | Acceptance feedback fires before the vehicle physically moves | Integration |
+
+### T-FWD — Forward-only motion (`docs/05` §0)
+
+| ID | Assertion | Level |
+|---|---|---|
+| T-FWD-01 | Longitudinal velocity along the spline never goes negative, under any input | Headless |
+| T-FWD-02 | Chunk index is monotonically increasing across a 500 km run | Headless |
+| T-FWD-03 | Passed chunks are freed; memory is flat regardless of run length | Soak |
+| T-FWD-04 | No vehicle data contains a reverse ratio | CI |
+| T-FWD-05 | Spin recovery triggers per §0.1 and suppresses spawns for 2.0 s | Headless |
+| T-FWD-06 | Spin recovery is unreachable in modes where a spin ends the run | Headless |
 
 ### T-POL — Police (`docs/04` §8)
 

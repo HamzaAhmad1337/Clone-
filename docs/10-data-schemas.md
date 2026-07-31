@@ -60,7 +60,7 @@ Live examples are in `/data/`. This document is the reference.
     "transmission": {
       "type": "Sequential",                          // Automatic | Sequential | Manual | Single
       "gearRatios": [3.42, 2.24, 1.66, 1.28, 1.03, 0.84],
-      "reverseRatio": 3.10, "finalDrive": 3.73,
+      "finalDrive": 3.73,   // no reverseRatio — motion is forward-only, docs/05 §0
       "shiftTimeMs": 90, "efficiency": 0.95
     },
     "nitrous": { "capacitySeconds": 4.0, "torqueMultiplier": 1.38, "refillSeconds": 12.0 }

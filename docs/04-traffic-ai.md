@@ -131,6 +131,159 @@ annoying, and it creates the blocked-lane situations the player must solve).
 Hazards are the best content in the game and they cost nothing — they arise from the
 simulation. Make sure they are visible from at least 4.0 s away (§6.3).
 
+### 3.6 Signalling — blinkers are a fairness system
+
+Indicators are not decoration. They are the player's only advance warning that a gap is
+about to close, which puts them in the same category as brake lights: **a readability
+guarantee, not a graphical feature.**
+
+#### Rendering requirements
+- **Visible to 500 m, at every quality tier, always.** Same rule as brake lights
+  (§7). Culling an indicator is a fairness bug, not an optimization.
+- Flash rate **1.5 Hz** (90 flashes/min), 50% duty cycle. All vehicles flash at the same
+  rate — a real fleet varies slightly, but synchronised rate reads more clearly at speed
+  and this is a legibility system first.
+- Emissive material + a small light source within 90 m; emissive only beyond that; at
+  350 m+ the imposter keeps a single emissive quad per side. The blink must survive
+  every LOD transition.
+- Amber, high contrast against every environment's lighting. In Snow and Fog, boost
+  emissive intensity by 40% — an indicator that vanishes in the weather that most needs
+  it is the worst possible failure.
+
+#### Signal timing
+```
+intent formed → indicator ON → holdDuration → lateral movement begins
+                                            → movement completes → indicator OFF
+
+holdDuration by personality:
+  Professional  1.2 s      (correct, generous)
+  Timid         1.1 s
+  Learner       1.4 s, then forgets to cancel for 3–8 s after completing
+  Normal        0.7 s      (late, but present)
+  Distracted    0.5 s      (very late)
+  Hurried       0.4 s      (barely a courtesy)
+  Aggressive    0.0 s      (60% of the time: no signal at all)
+  Erratic       never
+```
+
+**Design intent:** `Professional`, `Timid`, and `Normal` cover 54% of traffic, so the
+majority of lane changes *are* telegraphed. The unsignalled minority is what makes the
+road feel alive and keeps the player reading body language — a car drifting toward a
+lane line is still a cue, even with no indicator. But the player must never be able to
+say "nobody ever signals," because at that point the indicator system has taught them
+to ignore it.
+
+#### Hazard lights
+Both indicators, same 1.5 Hz, on for: breakdowns, pileups, emergency stops, and any
+vehicle stationary on the carriageway. Hazards are the highest-priority visual signal in
+the game after brake lights and must be visible at the full 5.0 s hazard sightline
+(§6.3).
+
+#### Player indicators
+- **Auto mode (default):** indicator activates automatically on a committed lane change
+  and cancels on completion. Zero input cost, full immersion benefit.
+- **Manual mode:** bound to keys, for players who want it. Purely cosmetic — no
+  gameplay effect, and explicitly *not* required for the Courtesy Flash in §3.7.
+- Never punish a player for not signalling. This is an arcade game about speed, not a
+  driving test.
+
+### 3.7 The Courtesy Flash — asking traffic to move
+
+Flashing your headlights at a car ahead asks it to move over. This is real motorway
+behaviour: across continental Europe the keep-right rule is a legal duty, and flashing
+the high beams is the standard signal that faster traffic wants through.
+
+It is also the only mechanic in the game where the player influences traffic *without*
+steering, and that makes it the second skill axis.
+
+#### Input and detection
+```
+Input:      Flash high beams — tap. Default F (keyboard) / LB (gamepad) / wheel button.
+Cooldown:   2.5 s global
+Detection:  the nearest traffic vehicle whose bounds intersect the player's current lane
+            (or the lane the player is steering toward), between 25 m and 110 m ahead
+Requires:   player speed > 60 km/h, and closing speed > 15 km/h
+```
+
+Only **one** vehicle responds per flash — the nearest. Flashing does not clear a lane,
+it asks one driver.
+
+#### Response by personality
+
+| Personality | Yields | Response delay | On refusal |
+|---|---|---|---|
+| Professional | 95% | 0.6 s | Holds line, signals, moves at first safe gap |
+| Timid | 90% | 1.1 s | May also brake slightly — a hazard in itself |
+| Normal | 75% | 0.9 s | Holds |
+| Learner | 70% | 1.4 s | Moves clumsily, may straddle the line for 1.5 s |
+| Hurried | 45% | 0.7 s | Holds, closes the gap ahead |
+| Distracted | 35% | 1.6 s | Usually does not notice |
+| Erratic | 25% | 0.4–2.0 s | Unpredictable — may swerve the wrong way |
+| Aggressive | 10% | — | **15% chance of a brake-check in retaliation** |
+
+A yielding vehicle performs a normal `CHANGE_LANE` with its personality's blinker
+discipline (§3.6). **All the usual gap-acceptance rules still apply** — a driver who
+wants to move but has nowhere to go stays put, and that refusal must read as physical
+constraint, not rudeness. Show the indicator anyway: it is signalling intent it cannot
+yet act on.
+
+#### Environment modifier
+
+| Environment | Yield multiplier | Why |
+|---|---|---|
+| European Motorway | ×1.25 | Keep-right is a legal duty; lane discipline is real |
+| Japanese Expressway | ×1.15 | High courtesy norms |
+| Countryside, Coastal, Forest | ×1.05 | Relaxed, cooperative |
+| American Interstate, Desert, Snow, Mountain, Industrial, Airport | ×1.00 | Baseline |
+| Modern City, Middle Eastern Highway | ×0.85 | Denser, more assertive |
+| Cyberpunk City | ×0.60 | Nobody yields to anybody |
+
+Clamped to [0.05, 0.98] — there is never a guarantee, and never a certainty of refusal.
+
+#### The balance rules that stop it trivialising the game
+
+This mechanic could ruin Highway Rush. If flashing clears the road for free, the optimal
+strategy becomes "flash constantly," the traffic stops being an obstacle, and the near
+miss — the entire point of the game — evaporates. Four rules prevent that:
+
+1. **A yielded pass scores no near miss.** The car moved out of the way, so there is no
+   proximity to reward. This is the load-bearing rule: the Courtesy Flash is a *safety
+   valve that costs points*, never a scoring strategy. Threading the gap is always worth
+   more than asking for it.
+2. **It costs time you may not have.** At 300 km/h the player covers 83 m/s. A 0.9 s
+   response plus a 1.6 s lane change is 2.5 s — over 200 m. The flash must be sent
+   *early*, which means reading traffic two hundred metres out. That is a skill, and it
+   is a different one from threading.
+3. **Annoyance.** Flashing the same vehicle again within 6 s reduces its yield chance by
+   30% per repeat and doubles the Aggressive brake-check chance. Spamming makes the road
+   *more* hostile, exactly as it does in life.
+4. **It cannot manufacture a gap.** Gap acceptance is unchanged, so the mechanic can
+   never violate the solvability guarantee (§6) in either direction — it does not create
+   space that physics forbids, and it never removes the threadable path the spawner
+   already guaranteed.
+
+#### Interactions
+- **Police:** flashing at any police unit adds **+6 heat** and never causes a yield.
+  Pursuit vehicles do not take orders.
+- **Emergency vehicles:** never yield to a flash; the player yields to *them*.
+- **Semi-trucks and buses:** yield chance ×0.7 and response delay +0.8 s. A 16.5 m
+  vehicle needs a much bigger gap and takes far longer to cross a lane.
+- **Two-Way mode:** flashing at oncoming traffic does nothing except look alarming.
+- **Hardcore mode:** the Courtesy Flash is disabled entirely. No safety valve.
+- **Night and Fog:** yield chance ×1.15 — a flash is far more visible in the dark.
+
+#### Feedback
+The flash must feel like an action even when it fails:
+- Instant visual: headlight beams punch to high beam for 180 ms, twice, with the
+  volumetric cones brightening.
+- A soft relay click on the UI bus.
+- When a vehicle *accepts*: its indicator comes on, and a small world-space
+  acknowledgement marker appears above it for 0.8 s. The player must know the ask landed
+  before the car has physically moved, or the mechanic feels unresponsive.
+- When a vehicle *refuses*: nothing. Silence is the correct feedback for being ignored.
+- On a retaliation brake-check: the target's brake lights flare hard and a distinct
+  aggressive audio sting fires. The player has annoyed someone and should feel it.
+
 ---
 
 ## 4. The Near-Miss Contract (mandatory)

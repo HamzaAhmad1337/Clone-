@@ -5,12 +5,64 @@ Challenges, ghosts, and leaderboard validation all work.
 
 ---
 
+## 0. Forward-only motion — the constraint that makes streaming clean
+
+**The player vehicle never travels backward.** There is no reverse gear, no reverse
+creep, and no way to revisit road that has been passed. This is a design decision, and
+it buys more than it costs.
+
+| Consequence | Benefit |
+|---|---|
+| Chunk index is **monotonically increasing** | Streaming is a ring buffer, not a bidirectional window. No re-entry logic, no cache of visited chunks |
+| Passed chunks are **never revisited** | They can be freed immediately and permanently. Memory is bounded and constant, not a function of run length |
+| Generation is strictly **one-directional** | The worker thread only ever produces ahead. No predicting which way the player will go |
+| No backward collision cases | Rear-end geometry only needs to handle traffic hitting the player, never the reverse |
+| Traffic despawn behind is **final** | No need to keep despawned vehicles addressable |
+
+Implementation:
+
+```
+- Every vehicle's longitudinal velocity along the road spline is clamped to >= 0.
+- Brake input decelerates to 0 and holds. It never produces negative velocity.
+- `reverseRatio` is omitted from vehicle data (docs/10 §1). Gearboxes have no reverse.
+- Chunks with index < (playerChunkIndex - 2) are destroyed, not pooled for reuse
+  as themselves — their actors return to the generic pool.
+```
+
+### 0.1 Spin recovery
+
+Forward-only motion does not mean forward-only *facing*. A player can still be spun by a
+collision. In modes where a spin does not immediately end the run (Free Ride, and the
+glancing-blow cases in `docs/01` §7):
+
+```
+if (|heading - roadDirection| > 120°  AND  speed < 25 km/h  for > 1.5 s)
+    → fade out over 0.4 s
+    → reposition facing forward in the nearest open lane, at the same chunk position
+    → fade in over 0.4 s, at 40 km/h
+    → 2.0 s of traffic spawn suppression in that lane so the player is not
+      immediately re-hit
+```
+
+This is the only teleport in the game and it exists because the alternative — a player
+stuck facing backward on a one-way road with no reverse — is unrecoverable.
+
+### 0.2 What this removes from the spec
+
+- The `Backwards` hidden achievement (drive 500 m in reverse) is **impossible** and has
+  been replaced (`docs/13` §5.1).
+- `PROMPT.md` §4.1's brake binding is "Brake", not "Brake / reverse".
+- `reverseRatio` is dropped from the vehicle schema.
+
+---
+
 ## 1. Chunk model
 
 ```
 Chunk length:        250 m
 Chunks ahead:        6   (1,500 m of prepared road)
-Chunks behind:       2   (500 m, for the rear camera and replays)
+Chunks behind:       2   (500 m, for the rear camera and replays only —
+                          never re-enterable, see §0)
 Generation budget:   ≤ 4 ms on a worker thread per chunk
 Attachment budget:   ≤ 0.8 ms on the game thread per chunk
 ```

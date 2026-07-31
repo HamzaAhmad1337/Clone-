@@ -381,7 +381,7 @@ earned:
 | Scenic Route | Spend 3 minutes below 60 km/h in Free Ride |
 | Van Life | Reach 300 km/h in a van (unlocks Torvald Courier "Nitro") |
 | Polite | Complete a 5 km run without a single near miss |
-| Backwards | Drive 500 m in reverse on a highway |
+| Signal Received | Have 25 vehicles yield to a courtesy flash in one run |
 | Rush Hour Zen | ×15 combo during a traffic jam |
 | Eye of the Storm | Near miss during a lightning flash |
 | Long Way Round | Drive 42.195 km in one run |

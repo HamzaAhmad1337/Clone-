@@ -63,6 +63,7 @@ working from it build recognizably the same game.
 | [`docs/16-analytics-telemetry.md`](docs/16-analytics-telemetry.md) | Event schema, KPIs, and how live data corrects the balance model |
 | [`docs/17-build-release.md`](docs/17-build-release.md) | Configurations, versioning, packaging, store, release checklist |
 | [`docs/18-input-controls.md`](docs/18-input-controls.md) | Devices, steering model, analog curves, force feedback, latency budget |
+| [`docs/19-engine-audio-reference.md`](docs/19-engine-audio-reference.md) | Engine order and firing-order acoustics, cross-plane vs flat-plane, per-family recording spec |
 | [`data/`](data/) | Working example content files and their JSON Schemas |
 | [`tools/validate_content.py`](tools/validate_content.py) | Dependency-free content validator, run by CI on every push |
 

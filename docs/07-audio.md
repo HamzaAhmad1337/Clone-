@@ -10,6 +10,11 @@ in, what surface they are on, and whether something just passed them closely.
 
 **Not a pitched loop.** A multi-layer, load-blended, RPM-crossfaded model.
 
+> **The acoustic engineering behind every family — firing orders, engine order and
+> fundamental frequencies, cross-plane vs flat-plane crank character, per-family
+> recording notes, and the class→family assignment — is in
+> `docs/19-engine-audio-reference.md`.** Read it before recording or authoring anything.
+
 ### 1.1 Structure per vehicle
 
 ```

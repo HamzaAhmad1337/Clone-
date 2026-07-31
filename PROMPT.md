@@ -20,7 +20,7 @@
 > | `01` game design | `06` graphics & art | `11` optimization | `16` analytics |
 > | `02` architecture | `07` audio | `12` roadmap | `17` build & release |
 > | `03` vehicle physics | `08` UI & UX | `13` content manifest | `18` input & controls |
-> | `04` traffic & police AI | `09` progression & economy | `14` testing & QA | |
+> | `04` traffic & police AI | `09` progression & economy | `14` testing & QA | `19` engine audio |
 
 ---
 
@@ -151,7 +151,8 @@ the HUD prompt glyphs within one frame.
 |---|---|---|---|
 | Steer | A/D or ←/→ | Left stick X | Wheel axis |
 | Throttle | W / ↑ | RT (analog) | Throttle pedal |
-| Brake / reverse | S / ↓ | LT (analog) | Brake pedal |
+| Brake | S / ↓ | LT (analog) | Brake pedal |
+| Courtesy flash (high beams) | F | LB | Button |
 | Handbrake | Space | B / Circle | Button |
 | Nitrous | Shift | A / Cross | Button |
 | Horn | H | RB | Horn |
@@ -230,6 +231,12 @@ controller rumble) before control is actually lost.
 Infinite, seeded, chunk-streamed procedural highway. **Full algorithm in
 `docs/05-road-generation.md`.** Requirements:
 
+- **Motion is forward-only.** There is no reverse gear and no way to revisit passed
+  road. This is a design decision that pays for itself: the chunk index becomes
+  monotonic, streaming becomes a ring buffer rather than a bidirectional window, passed
+  chunks are freed permanently, and memory is bounded and constant regardless of run
+  length. Spin recovery for the one case this cannot handle is in `docs/05` §0.1.
+
 - **Chunk size:** 250 m. Keep 6 chunks ahead, 2 behind. Generate on a worker thread,
   hand off finished chunks to the game thread for attachment. Never hitch.
 - **Spline-based:** each chunk is a spline with curvature, grade, bank, lane count,
@@ -303,6 +310,47 @@ Without this, the game feels cheap and players quit. With it, players feel skill
 Full physics + behavior within 150 m. Simplified kinematic motion 150–350 m. Pure
 spline-follow beyond 350 m. Animation and audio cull at 90 m. The transition must be
 invisible.
+
+---
+
+### 7.6 Signalling and the Courtesy Flash
+
+**Full spec in `docs/04-traffic-ai.md` §3.6–3.7.**
+
+**Indicators are a fairness system, not decoration.** They are the player's only advance
+warning that a gap is about to close, so they carry the same guarantee as brake lights:
+visible to 500 m at every quality tier, always, surviving every LOD transition. Signal
+discipline varies by personality — `Professional` signals early and correctly,
+`Aggressive` usually does not, `Erratic` never — but the 54% of traffic that does signal
+must be enough that the player learns to read them.
+
+**The Courtesy Flash** is the game's second skill axis. Flashing your high beams at the
+car ahead asks it to move over, which is real motorway behaviour — across continental
+Europe the keep-right rule is a legal duty and the flash is the standard signal that
+faster traffic wants through.
+
+- Affects **one** vehicle: the nearest in the player's lane, 25–110 m ahead.
+- Yield chance is per-personality (95% `Professional` → 10% `Aggressive`, which has a
+  15% chance of a retaliatory brake-check) and modified per environment (European
+  Motorway ×1.25, Cyberpunk City ×0.60).
+- **Normal gap acceptance still applies.** A driver who wants to move but has nowhere to
+  go stays put — and shows the indicator anyway, signalling intent it cannot yet act on.
+
+Four rules stop it trivialising the game, and the first is load-bearing:
+
+1. **A yielded pass scores no near miss.** The car moved, so there is no proximity to
+   reward. The Courtesy Flash is a *safety valve that costs points*, never a scoring
+   strategy. Threading a gap is always worth more than asking for one.
+2. It costs time — at 300 km/h, a response plus a lane change is over 200 m, so the
+   flash must be sent early. Reading traffic that far out is a skill, and a different
+   one from threading.
+3. Re-flashing the same vehicle within 6 s cuts its yield chance by 30% per repeat and
+   doubles the brake-check chance. Spamming makes the road more hostile.
+4. It cannot manufacture a gap, so it can never violate the solvability guarantee in
+   either direction.
+
+Flashing at police adds heat and never causes a yield. Hardcore mode disables it
+entirely.
 
 ---
 
