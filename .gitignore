@@ -1,0 +1,47 @@
+# Unreal Engine
+Binaries/
+Build/
+DerivedDataCache/
+Intermediate/
+Saved/
+.vs/
+.vscode/
+*.VC.db
+*.opensdf
+*.sdf
+*.sln
+*.suo
+*.xcodeproj
+*.xcworkspace
+
+# Engine-generated
+*.generated.h
+*.gen.cpp
+
+# Packaged builds
+Packaged/
+Dist/
+*.pak
+*.ucas
+*.utoc
+
+# Local profiling and capture output
+*.uprof
+*.csv.gz
+Profiling/
+Captures/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Local overrides — never commit machine-specific settings
+*.local.json
+LocalConfig/

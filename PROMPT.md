@@ -8,6 +8,19 @@
 >
 > The deep specifications live in `docs/`. This file is the contract; `docs/` is the
 > reference manual. When a number appears in both, `docs/` wins.
+>
+> **Start with `docs/00-index.md`.** It maps every requirement below to its spec
+> section, its milestone, and the test that proves it — and its §4 lists which numbers
+> move together, which is what bites hardest when tuning. `CLAUDE.md` orients an AI
+> assistant working in the repo.
+>
+> | | | | |
+> |---|---|---|---|
+> | `00` index & traceability | `05` road generation | `10` data schemas | `15` networking |
+> | `01` game design | `06` graphics & art | `11` optimization | `16` analytics |
+> | `02` architecture | `07` audio | `12` roadmap | `17` build & release |
+> | `03` vehicle physics | `08` UI & UX | `13` content manifest | `18` input & controls |
+> | `04` traffic & police AI | `09` progression & economy | `14` testing & QA | |
 
 ---
 
@@ -124,6 +137,9 @@ pillar it serves and how. Put that sentence in the class header comment.
 ---
 
 ## 4. CONTROLS AND INPUT
+
+**Full device, force-feedback, latency, and remapping spec in
+`docs/18-input-controls.md`.**
 
 Support keyboard, gamepad, and steering wheel simultaneously — hot-swappable
 mid-run without a menu visit. The active device is detected on last input and swaps
@@ -815,9 +831,19 @@ criteria pass.** Each milestone ends with a playable build.
 | **M17** | Polish & ship | Localization, telemetry, crash reporting, tutorial, balance pass, bug burn-down | Zero P0/P1 bugs; balance validated against §14 curve |
 | **M18+** | Post-launch | Multiplayer (ghost races → live convoys), seasons, cross-platform | Networking layer isolated behind an interface from M0 |
 
+**On M0's networking requirement:** "isolated behind an interface" is not a plan unless
+the interface exists. `docs/15-networking-multiplayer.md` §1 defines the four interfaces
+— identity, cloud save, leaderboards, sessions — that must ship in M0 with working null
+implementations, so that 1.3 is a feature rather than a rewrite. `T-NET-01` asserts the
+whole game plays on the null implementations.
+
 ---
 
 ## 21. DEFINITION OF DONE
+
+Test IDs referenced below are defined in `docs/14-testing-qa.md` §2, and
+`docs/00-index.md` §1 maps every requirement in this document to the tests that prove
+it. A requirement with no test is not done — it is hoped for.
 
 A feature is done only when **all** of the following are true:
 

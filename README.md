@@ -26,19 +26,25 @@ working from it build recognizably the same game.
 ## How to use it
 
 1. **Paste `PROMPT.md` into your coding assistant** as the opening instruction of a new
-   project. It is self-contained and ~10k words.
+   project. It is self-contained. If your assistant reads `CLAUDE.md` automatically
+   (Claude Code does), it will orient itself without being told.
 2. **Work milestone by milestone** from `PROMPT.md` §20. Do not skip M1 or M4 — they
    are hard gates, and everything downstream depends on them.
 3. **Point the assistant at `docs/` for depth.** `PROMPT.md` is the contract; `docs/` is
    the reference manual. Where a number appears in both, `docs/` wins.
-4. **Use `data/` as the content template.** Adding a car, mode, or environment should
-   never require code — the schemas enforce that.
+4. **Use `docs/00-index.md` to navigate.** It maps every requirement to its spec
+   section, its milestone, and the test that proves it — and §4 lists which numbers move
+   together, which is the thing that bites hardest when tuning.
+5. **Use `data/` as the content template.** Adding a car, mode, or environment should
+   never require code — the schemas and `tools/validate_content.py` enforce that.
 
 ## Contents
 
 | File | What's in it |
 |---|---|
 | **[`PROMPT.md`](PROMPT.md)** | The master prompt. 22 sections, self-contained, paste-ready |
+| [`CLAUDE.md`](CLAUDE.md) | Agent orientation — read first if you are an AI assistant working here |
+| [`docs/00-index.md`](docs/00-index.md) | **Traceability matrix**: every requirement → spec → milestone → test, plus coupled values and open questions |
 | [`docs/01-game-design.md`](docs/01-game-design.md) | Design thesis, difficulty curves, near-miss math, progression cadence, anti-frustration rules |
 | [`docs/02-technical-architecture.md`](docs/02-technical-architecture.md) | 22 modules, event bus, pooling, threading, save format, engine portability |
 | [`docs/03-vehicle-physics.md`](docs/03-vehicle-physics.md) | Suspension, tire model, powertrain, aero, assists, per-class tuning tables, damage |
@@ -52,7 +58,13 @@ working from it build recognizably the same game.
 | [`docs/11-optimization.md`](docs/11-optimization.md) | Frame budgets per thread, LOD, pooling, the hitch problem, memory ceilings |
 | [`docs/12-roadmap.md`](docs/12-roadmap.md) | 18 milestones with acceptance criteria, schedule, risk register |
 | [`docs/13-content-manifest.md`](docs/13-content-manifest.md) | 80 vehicles, 14 environments, 100 achievements, cosmetics, asset budgets |
+| [`docs/14-testing-qa.md`](docs/14-testing-qa.md) | Test strategy, the full assertion register (~130 IDs), playtest protocol, bug severity |
+| [`docs/15-networking-multiplayer.md`](docs/15-networking-multiplayer.md) | The four interfaces required from M0, replays, anti-cheat, convoys |
+| [`docs/16-analytics-telemetry.md`](docs/16-analytics-telemetry.md) | Event schema, KPIs, and how live data corrects the balance model |
+| [`docs/17-build-release.md`](docs/17-build-release.md) | Configurations, versioning, packaging, store, release checklist |
+| [`docs/18-input-controls.md`](docs/18-input-controls.md) | Devices, steering model, analog curves, force feedback, latency budget |
 | [`data/`](data/) | Working example content files and their JSON Schemas |
+| [`tools/validate_content.py`](tools/validate_content.py) | Dependency-free content validator, run by CI on every push |
 
 ## The five ideas that matter most
 

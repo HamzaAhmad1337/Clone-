@@ -60,6 +60,34 @@ spec. Five were added; one is a deliberate deviation.
 | Project tracking | GitHub Projects added to the stack, milestones mirroring §20 |
 | **Ragdoll debris** | **Deliberately not implemented for people.** Vehicle debris only — no pedestrians exist in the game and none are struck. This keeps the ESRB E10+ / PEGI 7 target in `PROMPT.md` §1. Stated explicitly in `docs/03` §8.3 |
 
+### Specification — completeness pass
+
+An audit for what an implementer would still lack found that the spec asserted CI
+enforcement in 13 places with no CI, required an M0 networking interface it never
+defined, and scattered ~130 test assertions across 13 documents with no unified plan.
+
+**Added:**
+
+| Addition | Why it was needed |
+|---|---|
+| `CLAUDE.md` | The repo's entire purpose is to be handed to an AI assistant, and it had no orientation file. Covers precedence rules, the eight non-negotiables, the two hard gates, and the six known trip-ups |
+| `docs/00-index.md` | Traceability matrix: every requirement → spec → milestone → test. Plus §3 (single source of truth per number), §4 (coupled values — change one, check the others), and §5 (open questions with defaults) |
+| `docs/14-testing-qa.md` | Collects ~130 assertions into a register with IDs, assigns each a level, and adds the manual playtest protocol — including logging whether each death was self-blamed or game-blamed, the highest-signal data in the project |
+| `docs/15-networking-multiplayer.md` | Defines the four M0 interfaces with null implementations, the replay format (~4 KB/min, seed + input trace), server-side replay validation as anti-cheat, and the convoy design that replicates 4 transforms instead of all traffic |
+| `docs/16-analytics-telemetry.md` | Consent posture, event schema, KPIs, and §4 — how live data corrects the balance model, with an explicit line between what may be tuned live and what may never be |
+| `docs/17-build-release.md` | Configurations, versioning (including the separate save-schema and simulation-version axes), packaging, store requirements, and the full release checklist |
+| `docs/18-input-controls.md` | Control is pillar #6 and had the thinnest deep-dive. Steering lock table per speed, analog response curves, force feedback as a physics readout, and the latency budget stage by stage |
+| `.github/workflows/validate.yml` | Makes the CI claims real: content lints, JSON Schema validation, and a cross-reference check that fails on any broken `docs/` link |
+| `.gitignore`, `LICENSE` | Standard hygiene; the license notes that nothing here grants rights to any third-party game or marque |
+
+**Two design points worth recording, both of which fell out of writing the new docs:**
+
+- Server-side replay validation is what makes the human-readable save format safe. A
+  score must be *reproducible from inputs*, so editing a save cannot forge one — which
+  is also why determinism is an architectural requirement rather than a nicety.
+- Convoys replicate four player transforms, not traffic. Identical seeds produce
+  identical traffic on every client, so bandwidth stays under 8 KB/s per player.
+
 ---
 
 ## Milestone log

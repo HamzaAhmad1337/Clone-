@@ -1,0 +1,91 @@
+name: Validate
+
+# The specification makes ~13 separate "CI enforces this" claims. This workflow is
+# what makes them true for everything that exists today: content data and docs.
+# Engine build, unit, headless-sim, and performance jobs join this file at M0
+# (see docs/14-testing-qa.md §4 for the full intended pipeline).
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  content:
+    name: Content validation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # docs/10-data-schemas.md §9 — the dependency-free lints.
+      # Blocks merge: ID uniqueness, localization-key form, torque-curve ordering
+      # and rev-range sanity, peak-power coherence, gear-ratio monotonicity,
+      # downforce sign convention, and token purity.
+      - name: Run content lints
+        run: python3 tools/validate_content.py data
+
+      - name: Install jsonschema
+        run: pip install --quiet jsonschema
+
+      # Structural validation against data/schemas/*.schema.json.
+      - name: Validate against JSON Schema
+        run: |
+          python3 - <<'PY'
+          import json, pathlib, sys
+          from jsonschema import Draft202012Validator
+
+          schemas = pathlib.Path("data/schemas")
+          failures = 0
+
+          # Map a content directory to its schema, where one exists yet.
+          pairs = {"vehicles": "vehicle.schema.json"}
+
+          for directory, schema_name in pairs.items():
+              schema_path = schemas / schema_name
+              if not schema_path.exists():
+                  print(f"note: no schema for {directory}, skipping")
+                  continue
+              schema = json.loads(schema_path.read_text())
+              validator = Draft202012Validator(schema)
+              for doc_path in sorted(pathlib.Path("data", directory).glob("*.json")):
+                  doc = json.loads(doc_path.read_text())
+                  errors = sorted(validator.iter_errors(doc), key=lambda e: e.path)
+                  for error in errors:
+                      location = "/".join(str(p) for p in error.path) or "<root>"
+                      print(f"error: {doc_path}: {location}: {error.message}")
+                      failures += 1
+                  if not errors:
+                      print(f"ok:    {doc_path}")
+
+          sys.exit(1 if failures else 0)
+          PY
+
+  docs:
+    name: Documentation integrity
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Every docs/NN-*.md reference in the spec must resolve. A spec that links
+      # to a file that does not exist is how specs quietly rot.
+      - name: Check cross-references resolve
+        run: |
+          missing=0
+          for ref in $(grep -ohE 'docs/[0-9]{2}-[a-z-]+\.md' \
+                        README.md CLAUDE.md PROMPT.md docs/*.md | sort -u); do
+            if [ ! -f "$ref" ]; then
+              echo "error: broken reference to $ref"
+              missing=$((missing + 1))
+            fi
+          done
+          echo "$(ls docs/*.md | wc -l) docs present, $missing broken reference(s)"
+          exit $missing
+
+      # tools/ must stay runnable with a stock interpreter.
+      - name: Byte-compile tools
+        run: python3 -m compileall -q tools/
