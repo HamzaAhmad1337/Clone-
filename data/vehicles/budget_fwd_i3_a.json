@@ -1,0 +1,110 @@
+{
+  "id": "budget_fwd_i3_a",
+  "displayNameKey": "vehicle.budget_fwd_i3_a.name",
+  "marque": "Meridian",
+  "class": "Budget",
+  "licensed": {
+    "enabled": true,
+    "manufacturer": "Suzuki",
+    "model": "Mehran",
+    "generation": "2nd generation",
+    "modelYear": 2018,
+    "displayName": "Suzuki Mehran VXR",
+    "meshSet": "SM_Suzuki_Mehran_VXR",
+    "engineCode": "F8B"
+  },
+  "unlock": {
+    "priceCoins": 0,
+    "priceCash": null,
+    "driverLevel": 1,
+    "achievement": null,
+    "event": null
+  },
+  "physics": {
+    "massKg": 660,
+    "centreOfMass": { "wheelbaseFraction": 0.40, "heightM": 0.52 },
+    "wheelbaseM": 2.175,
+    "trackFrontM": 1.21,
+    "trackRearM": 1.20,
+    "widthM": 1.40,
+    "lengthM": 3.30,
+    "dragCoefficient": 0.45,
+    "frontalAreaM2": 1.80,
+    "downforceCoefficientFront": 0.0,
+    "downforceCoefficientRear": 0.0,
+    "driveLayout": "FWD",
+    "driveSplitFrontPct": 100,
+    "tyreRadiusM": 0.254,
+    "tyreWidthM": 0.145,
+    "defaultCompound": "Stock",
+    "steeringLockDeg": 36.0,
+    "suspension": {
+      "restLengthM": 0.28,
+      "travelM": 0.14,
+      "springStiffnessNPerM": { "front": 22000, "rear": 18000 },
+      "damperRateNsPerM": { "front": 2200, "rear": 1900 },
+      "antiRollStiffnessNPerM": { "front": 5000, "rear": 3000 },
+      "maxForceMultiplier": 3.0
+    }
+  },
+  "powertrain": {
+    "engineFamily": "I3",
+    "displacementL": 0.796,
+    "cylinders": 3,
+    "idleRpm": 850,
+    "maxRpm": 6000,
+    "redlineRpm": 5800,
+    "torqueCurveNm": [
+      [800, 38], [1500, 50], [2000, 55], [3000, 59],
+      [4000, 57], [5500, 50.3], [6000, 44]
+    ],
+    "engineBrakeCoefficient": 0.14,
+    "inertiaKgM2": 0.12,
+    "transmission": {
+      "type": "Manual",
+      "gearRatios": [3.55, 1.90, 1.28, 0.91, 0.75],
+      "finalDrive": 4.10,
+      "shiftTimeMs": 180,
+      "efficiency": 0.92
+    },
+    "nitrous": { "capacitySeconds": 4.0, "torqueMultiplier": 1.38, "refillSeconds": 12.0 }
+  },
+  "derivedStats": {
+    "topSpeedKmh": 135,
+    "zeroToHundredS": 24.0,
+    "hundredToZeroM": 48.0,
+    "peakPowerKw": 29,
+    "peakPowerRpm": 5500,
+    "handlingRating": 32,
+    "brakingRating": 30
+  },
+  "visual": {
+    "meshLod0": "SM_Budget_FWD_I3_A_LOD0",
+    "interiorMesh": "SM_Budget_FWD_I3_A_Interior",
+    "paintZones": 1,
+    "defaultPaint": { "type": "Gloss", "colorHex": "#DCDCDC" },
+    "wheelSlots": ["front", "rear"],
+    "bodyKitSlots": ["frontBumper", "rearBumper", "spoiler"],
+    "exhaustTipCount": 1,
+    "exhaustSockets": ["exhaust_c"],
+    "driverSeatSocket": "seat_driver",
+    "cockpitCameraSocket": "cam_cockpit",
+    "gaugeBindings": {
+      "tachometer": { "socket": "gauge_tach", "minRpm": 0, "maxRpm": 7000, "sweepDeg": 220 },
+      "speedometer": { "socket": "gauge_speed", "maxKmh": 160, "sweepDeg": 220 }
+    }
+  },
+  "audio": {
+    "engineBank": "EB_I3_Budget_A",
+    "pitchOffsetSemitones": 1.5,
+    "exhaustLayer": "EX_Economy_Single",
+    "turboLayer": null,
+    "hornSample": "HORN_Economy_01",
+    "backfireEnabled": false
+  },
+  "upgradeCaps": {
+    "engine": 5, "turbo": 3, "nitrous": 5, "transmission": 5, "tyres": 5,
+    "brakes": 5, "suspension": 5, "weight": 3, "aero": 2, "cooling": 5
+  },
+  "tags": ["fwd", "naturallyAspirated", "budget", "defaultStart", "regionalHero"]
+}

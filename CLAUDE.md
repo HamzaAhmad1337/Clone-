@@ -14,7 +14,7 @@ Read this file first, then `PROMPT.md`, then the `docs/` file relevant to your t
 | **Product** | Highway Rush — an endless arcade highway-driving game for PC |
 | **State** | Specification complete. No engine project exists yet |
 | **Canonical spec** | `PROMPT.md` — 22 sections, self-contained |
-| **Reference manual** | `docs/00`–`docs/19` |
+| **Reference manual** | `docs/00`–`docs/20` |
 | **Content templates** | `data/` — one working example per type |
 | **Build order** | `PROMPT.md` §20, milestones M0–M18 |
 
@@ -29,9 +29,14 @@ rather than silently picking one.
 These are load-bearing. Violating any of them breaks the game in a way that is
 expensive to discover later.
 
-1. **Originality.** Nothing may be copied, decompiled, or derived from any shipped game.
-   No real manufacturer names, logos, or licensed body shapes. Every marque in this spec
-   is invented — see `docs/13` §1.
+1. **Originality — with a licensed-content exception.** Nothing may be copied,
+   decompiled, or derived from any shipped game. Every invented marque in `docs/13` §1
+   is original and is always present as the fallback identity.
+   **Real manufacturers are supported through the marque-mapping layer in `docs/20`**,
+   behind the `HR_LICENSED_CONTENT` build flag. Physics, class, price, and progression
+   are identical in both identities — only the name and mesh differ. With the flag off,
+   no real manufacturer string may appear anywhere in the build (`T-LIC-02`). Never
+   hardcode a real marque into content; always use the `licensed` block.
 2. **The Near-Miss Contract** (`docs/04` §4). Once the player's bumper passes a traffic
    vehicle's rear bumper, that vehicle loses lane-change and hard-brake authority for
    0.9 s. Without it the game feels cheap and players quit.
@@ -123,6 +128,7 @@ spec does not allow, and explain why.
 | Packaging, versioning, store, release checklist | `docs/17-build-release.md` |
 | Input devices, force feedback, remapping | `docs/18-input-controls.md` |
 | Firing orders, engine acoustics, sound recording spec | `docs/19-engine-audio-reference.md` |
+| Real-manufacturer roster and the licensing flag | `docs/20-licensed-vehicle-roster.md` |
 
 ---
 

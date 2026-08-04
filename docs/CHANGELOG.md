@@ -140,6 +140,52 @@ specific car are property. Using real vehicles is a licensing decision, not a te
 one — the architecture supports it since `engineBank` is just a data field, but nothing
 here assumes it and the spec ships legally clean without it.
 
+### Specification — real-manufacturer roster
+
+Real cars are now supported, via a **marque-mapping layer** rather than by hardcoding
+names into content (`docs/20`, new). Every vehicle keeps its invented marque as a
+permanent fallback and gains an optional `licensed` block; the `HR_LICENSED_CONTENT`
+build flag chooses which identity presents. Physics, class, price, and progression slot
+are byte-identical between the two.
+
+The layer exists because it is the difference between a config flip and a content re-do:
+shipping globally without licences becomes flipping a flag, a partial licence deal
+becomes a per-vehicle override, and a manufacturer withdrawing becomes one line.
+`T-LIC-02` asserts that with the flag off, no real manufacturer string appears anywhere
+in the build — including meshes, audio bank names, and store metadata.
+
+**Roster** (`docs/20` §3): Suzuki/Maruti, Honda, BMW, Mercedes-AMG, Porsche, Toyota,
+Ford, Dodge — ~60 vehicles with manufacturer-published specs, each mapped to a
+`docs/19` engine family.
+
+**New Budget class.** The Suzuki Mehran does not fit the existing class table: 29 kW,
+59 N·m, 660 kg, 135 km/h, 0–100 in ~24 s. That is far below the previous Starter floor
+of 82 kW, so the spec gains a class beneath it. This is good for the game rather than a
+problem to work around — against traffic averaging 78–112 km/h, a Mehran is barely
+overtaking anything, so every near miss has to be earned by patience and line choice.
+It is the perfect tutorial car, a legitimate hard mode, and for a Pakistani player it is
+instantly personal. Recommended as the default starting vehicle in licensed mode.
+
+Consequential changes: `Budget` added to the class enum, `peakPowerKw` minimum 30 → 25,
+`zeroToHundredS` maximum 20 → 30, spring-rate floor 28,000 → 12,000 N/m and damper floor
+3,000 → 1,800 N·s/m (Budget class only), and `data/vehicles/budget_fwd_i3_a.json` added
+as a working licensed example that passes both the lint pass and JSON Schema.
+
+**Engine family coverage.** The requested brands cover 14 of 15 families with no filler,
+including both V8 crank types in the same roster — the Mustang GT (cross-plane, burble)
+next to the Shelby GT350 (flat-plane, scream) is a free in-game demonstration of
+`docs/19` §2. Two gaps recorded: `Rotary` needs Mazda, `MotorcycleI4` needs a bike
+manufacturer.
+
+**Traffic stays unbranded** apart from three regional exceptions (Mehran, Alto, Cultus,
+Hilux, Land Cruiser as ambient traffic in South Asian and Middle Eastern environments).
+Police and emergency vehicles never carry a licensed identity — enforced by the
+validator, since no manufacturer wants their car modelled being rammed.
+
+Originality rules amended in `PROMPT.md` §0, `CLAUDE.md`, `docs/13`, and `README.md`.
+The prohibition on deriving anything from another shipped game is unchanged and
+absolute; signage and place names stay invented in both modes.
+
 ---
 
 ## Milestone log

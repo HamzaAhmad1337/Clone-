@@ -64,6 +64,7 @@ working from it build recognizably the same game.
 | [`docs/17-build-release.md`](docs/17-build-release.md) | Configurations, versioning, packaging, store, release checklist |
 | [`docs/18-input-controls.md`](docs/18-input-controls.md) | Devices, steering model, analog curves, force feedback, latency budget |
 | [`docs/19-engine-audio-reference.md`](docs/19-engine-audio-reference.md) | Engine order and firing-order acoustics, cross-plane vs flat-plane, per-family recording spec |
+| [`docs/20-licensed-vehicle-roster.md`](docs/20-licensed-vehicle-roster.md) | Real-manufacturer roster (Suzuki, Honda, BMW, Mercedes, Porsche, Toyota, Ford, Dodge) and the licensing flag |
 | [`data/`](data/) | Working example content files and their JSON Schemas |
 | [`tools/validate_content.py`](tools/validate_content.py) | Dependency-free content validator, run by CI on every push |
 
@@ -101,7 +102,13 @@ Unity 6 and Godot 4.4.
 ## Originality
 
 Highway Rush is *inspired by* the Traffic Racer genre and is entirely original in code,
-assets, branding, and content. Every marque, vehicle, place name, and brand in this
-specification is invented. No real manufacturer names, logos, or licensed body shapes
-are used anywhere, and reproducing any shipped game's assets is prohibited by
-`PROMPT.md` §0.
+assets, and design. Reproducing any shipped game's assets is prohibited by
+`PROMPT.md` §0, absolutely and in both modes.
+
+Vehicle identity is a **build flag**. Every car ships with an invented marque
+(`docs/13` §1) as its permanent fallback, plus an optional real-manufacturer identity
+(`docs/20`). `HR_LICENSED_CONTENT` chooses which one presents; physics, class, price,
+and progression are identical either way. With the flag off, no real manufacturer string
+appears anywhere in the build — asserted by `T-LIC-02`. That makes shipping globally a
+config change rather than a content re-do. Signage and place names stay invented in both
+modes.

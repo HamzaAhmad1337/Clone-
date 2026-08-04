@@ -13,7 +13,14 @@ Live examples are in `/data/`. This document is the reference.
 {
   "id": "aurel_gt340",
   "displayNameKey": "vehicle.aurel_gt340.name",     // localization key, never a literal
-  "marque": "Aurel",                                 // invented marque
+  "marque": "Aurel",                                 // invented marque — always present
+  // Optional real-manufacturer identity, presented only when HR_LICENSED_CONTENT
+  // is on. Physics is identical either way. Full roster in docs/20.
+  "licensed": {
+    "enabled": true,
+    "manufacturer": "BMW", "model": "M3", "generation": "E46", "modelYear": 2004,
+    "displayName": "BMW M3 (E46)", "meshSet": "SM_BMW_M3_E46", "engineCode": "S54B32"
+  },
   "class": "Sports",                                 // see docs/03 §7
   "unlock": {
     "priceCoins": 420000,

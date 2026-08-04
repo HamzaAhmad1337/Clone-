@@ -44,8 +44,8 @@ Defaults, scaled per class in §7:
 |---|---|---|
 | `restLength` | 0.30–0.45 m | Longer for SUV/off-road |
 | `suspensionTravel` | 0.12–0.35 m | |
-| `springStiffness` | 28,000–95,000 N/m | Per-corner, front usually stiffer on FWD |
-| `damperRate` | 3,000–9,000 N·s/m | |
+| `springStiffness` | 12,000–95,000 N/m | Per-corner, front usually stiffer on FWD. Below 28,000 only for the Budget class |
+| `damperRate` | 1,800–9,000 N·s/m | Below 3,000 only for the Budget class |
 | `antiRollStiffness` | 4,000–30,000 N/m | The primary body-roll tuning knob |
 | `maxSuspensionForce` | 3× static corner load | Prevents launch on hard landings |
 
@@ -226,6 +226,7 @@ content validator asserts this (`docs/10-data-schemas.md` §9).
 
 | Class | Mass (kg) | Power (kW) | Peak torque (N·m @ rpm) | Drive | Gears | Top speed (km/h) | 0–100 (s) | CoM | Roll stiffness | Character |
 |---|---|---|---|---|---|---|---|---|---|---|
+| **Budget** | 660 | 29 | 59 @ 3,000 | FWD | 5 | 135 | 24.0 | 0.40, 0.52 | Very soft | Gutless, light, buzzy. See `docs/20` §2 |
 | Starter | 1,180 | 82 | 145 @ 4,200 | FWD | 5 | 168 | 11.8 | 0.42, 0.55 | Soft | Slow, safe, understeers |
 | Economy | 1,240 | 96 | 165 @ 4,000 | FWD | 5 | 182 | 10.4 | 0.42, 0.54 | Soft | Baseline |
 | Hot Hatch | 1,320 | 180 | 320 @ 2,800 | FWD | 6 | 235 | 6.2 | 0.40, 0.50 | Medium | Torque steer, lift-off rotation |

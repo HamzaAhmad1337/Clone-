@@ -21,6 +21,7 @@
 > | `02` architecture | `07` audio | `12` roadmap | `17` build & release |
 > | `03` vehicle physics | `08` UI & UX | `13` content manifest | `18` input & controls |
 > | `04` traffic & police AI | `09` progression & economy | `14` testing & QA | `19` engine audio |
+> | | | | `20` licensed roster |
 
 ---
 
@@ -32,12 +33,18 @@ test the entire product.
 
 **Non-negotiable constraints:**
 
-1. **100% original work.** Highway Rush is *inspired by* the Traffic Racer genre. You
-   must not copy, decompile, extract, reference, or reproduce any code, art, audio,
-   UI layout, string, logo, car model, brand name, or trade dress from Traffic Racer
-   or any other shipped game. Do not use real-world car manufacturer names, logos, or
-   licensed body shapes. All vehicles are original designs with invented in-fiction
-   marque names (see `docs/13-content-manifest.md`).
+1. **Original work, with a licensed-content layer.** Highway Rush is *inspired by* the
+   Traffic Racer genre. You must not copy, decompile, extract, reference, or reproduce
+   any code, art, audio, UI layout, string, logo, car model, brand name, or trade dress
+   from Traffic Racer or any other shipped game — that prohibition is absolute.
+
+   Real car manufacturers **are** supported, through the marque-mapping layer in
+   `docs/20-licensed-vehicle-roster.md`. Every vehicle carries an invented marque
+   (`docs/13` §1) as its permanent fallback plus an optional `licensed` block, and the
+   `HR_LICENSED_CONTENT` build flag chooses which identity ships. Physics, class, price,
+   and progression slot are byte-identical between the two. With the flag off, no real
+   manufacturer string may appear anywhere in the build — asserted by `T-LIC-02`.
+   Never hardcode a real marque into content.
 2. **Playable at every milestone.** The build must run and be fun after *every*
    milestone in §20. Never leave the repo in a state where the game does not launch.
 3. **No placeholder-only milestones.** If art is not ready, ship grey-box art that is

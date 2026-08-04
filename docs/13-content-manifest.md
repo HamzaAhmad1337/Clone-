@@ -1,8 +1,12 @@
 # 13 — Content Manifest
 
-Every marque, model, place, and brand in Highway Rush is **invented**. Nothing here
-references a real manufacturer, a real vehicle, a real jurisdiction's signage
-standards, or a real place name. This is a legal requirement, not a style choice.
+Every marque, model, place, and brand in **this document** is invented, and this roster
+is the permanent fallback identity for the whole game — the one that ships when
+`HR_LICENSED_CONTENT` is off.
+
+**The real-manufacturer roster lives in `docs/20-licensed-vehicle-roster.md`**, mapped
+onto these same physics slots. Signage and place names remain invented in both modes: no
+real jurisdiction's sign standards and no real place names, ever.
 
 ---
 

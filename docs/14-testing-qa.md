@@ -83,6 +83,18 @@ dependency it should not have.
 | T-FLASH-10 | Environment multipliers applied and clamped to [0.05, 0.98] | Unit |
 | T-FLASH-11 | Acceptance feedback fires before the vehicle physically moves | Integration |
 
+### T-LIC — Licensed content (`docs/20`)
+
+| ID | Assertion | Level |
+|---|---|---|
+| T-LIC-01 | Every licensed vehicle's specs match `docs/20` §3 within 2% | CI |
+| T-LIC-02 | **With `HR_LICENSED_CONTENT` off, no real manufacturer string appears anywhere in the build** — meshes, audio bank names, localization, store metadata | CI |
+| T-LIC-03 | Physics, class, price, and progression slot are byte-identical between identities | CI |
+| T-LIC-04 | Per-vehicle `licensed.enabled` override produces a correct mixed roster | Unit |
+| T-LIC-05 | Every licensed vehicle maps to a valid `docs/19` engine family | CI |
+| T-LIC-06 | The roster covers every engine family, or the gap is explicitly recorded | CI |
+| T-LIC-07 | No police or emergency vehicle carries a licensed identity | CI |
+
 ### T-FWD — Forward-only motion (`docs/05` §0)
 
 | ID | Assertion | Level |

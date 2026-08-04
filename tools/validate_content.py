@@ -76,7 +76,7 @@ def check_localization_keys(docs: dict[Path, dict]) -> None:
 # --- Vehicle-specific physical coherence lints -----------------------------------
 
 CLASS_POWER_KW = {
-    "Starter": 82, "Economy": 96, "HotHatch": 180, "Sedan": 165, "Muscle": 350,
+    "Budget": 29, "Starter": 82, "Economy": 96, "HotHatch": 180, "Sedan": 165, "Muscle": 350,
     "Sports": 300, "Super": 480, "Hyper": 720, "Luxury": 280, "SUV": 220,
     "Pickup": 260, "Van": 150, "OffRoad": 290, "Classic": 145, "Electric": 560,
     "Track": 440, "Bike": 145,
@@ -146,6 +146,39 @@ def check_vehicles(docs: dict[Path, dict]) -> None:
             error(path, "vehicles may never be priced in Tokens (docs/09 §1)")
 
 
+def check_licensed(docs: dict[Path, dict]) -> None:
+    """Lints for the real-manufacturer marque-mapping layer (docs/20 §7).
+
+    The invented `marque` is the permanent fallback and must always be present, so
+    that shipping with HR_LICENSED_CONTENT off is a build flag rather than an audit.
+    """
+    for path, doc in docs.items():
+        licensed = doc.get("licensed")
+        if licensed is None:
+            continue
+
+        # T-LIC-02 precondition: an invented fallback must exist.
+        if not doc.get("marque"):
+            error(path, "has a 'licensed' block but no invented 'marque' fallback "
+                        "— shipping unlicensed would leave this vehicle nameless")
+
+        for field in ("manufacturer", "model", "displayName"):
+            if not licensed.get(field):
+                error(path, f"licensed.{field} is missing or empty")
+
+        # T-LIC-07: police and emergency vehicles never carry a real identity.
+        if set(doc.get("tags", [])) & {"police", "emergency", "pursuit"}:
+            error(path, "police/emergency vehicles may not carry a licensed identity "
+                        "(docs/20 §5)")
+
+        # The displayed name should actually name the manufacturer.
+        manufacturer = licensed.get("manufacturer") or ""
+        display = licensed.get("displayName") or ""
+        if manufacturer and manufacturer.lower() not in display.lower():
+            warn(path, f"licensed.displayName {display!r} does not contain the "
+                       f"manufacturer {manufacturer!r}")
+
+
 def check_token_purity(docs: dict[Path, dict]) -> None:
     """Nothing bought with Tokens may touch a stat field."""
     stat_fields = {"torqueMultiplier", "massMultiplier", "downforceMultiplier",
@@ -170,6 +203,7 @@ def main() -> int:
     check_unique_ids(docs)
     check_localization_keys(docs)
     check_vehicles(docs)
+    check_licensed(docs)
     check_token_purity(docs)
 
     for message in WARNINGS:
