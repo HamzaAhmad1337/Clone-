@@ -95,6 +95,15 @@ dependency it should not have.
 | T-LIC-06 | The roster covers every engine family, or the gap is explicitly recorded | CI |
 | T-LIC-07 | No police or emergency vehicle carries a licensed identity | CI |
 
+### T-ART — Art asset delivery (`docs/21` §6)
+
+| ID | Assertion | Level |
+|---|---|---|
+| T-ART-01 | Every vehicle mesh has all §3.3 sockets, correctly named | CI |
+| T-ART-02 | Every vehicle has a full LOD chain within the §3.2 budgets, plus a shadow proxy | CI |
+| T-ART-03 | Collision hull is inset 6 cm from the visual mesh on every drivable vehicle | CI |
+| T-ART-04 | Mesh names match `visual.meshLod0` / `licensed.meshSet` in the data file | CI |
+
 ### T-FWD — Forward-only motion (`docs/05` §0)
 
 | ID | Assertion | Level |

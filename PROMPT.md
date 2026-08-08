@@ -22,6 +22,7 @@
 > | `03` vehicle physics | `08` UI & UX | `13` content manifest | `18` input & controls |
 > | `04` traffic & police AI | `09` progression & economy | `14` testing & QA | `19` engine audio |
 > | | | | `20` licensed roster |
+> | | | | `21` art asset delivery |
 
 ---
 

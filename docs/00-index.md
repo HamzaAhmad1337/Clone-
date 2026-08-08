@@ -45,6 +45,7 @@ Use this document three ways:
 | **The Courtesy Flash** | `04` §3.7 | M3 | T-FLASH-01…11 |
 | Engine order and per-family acoustics | `19` §1–3 | M7 | T-AUD-08…14 |
 | Licensed marque-mapping layer | `20` §1 | M12 | T-LIC-01…07 |
+| Art asset delivery spec (sockets, LODs, pivots) | `21` §3 | M12 | T-ART-01…04 |
 | Budget class (Mehran tier) | `20` §2, `03` §7 | M12 | T-LIC-01 |
 | Near-miss detection at 1.20 m / 0.55 m | `PROMPT` §8.1, `01` §3 | M4 | T-SCO-01 |
 | Combo system, 3.2 s window, max 20 | `PROMPT` §8.2 | M4 | T-SCO-02 |
@@ -266,3 +267,4 @@ rather than by accident.
 | `18-input-controls` | Devices, curves, force feedback, remapping | `03` |
 | `19-engine-audio-reference` | Firing orders, engine order, crank character, per-family recording spec | `07`, `13` |
 | `20-licensed-vehicle-roster` | Real-manufacturer roster, marque-mapping layer, `HR_LICENSED_CONTENT` | `03`, `13`, `19` |
+| `21-art-asset-delivery` | Model checklist, sockets, LOD budgets, collision, naming, sourcing | `06`, `11`, `13`, `20` |

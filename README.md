@@ -65,6 +65,7 @@ working from it build recognizably the same game.
 | [`docs/18-input-controls.md`](docs/18-input-controls.md) | Devices, steering model, analog curves, force feedback, latency budget |
 | [`docs/19-engine-audio-reference.md`](docs/19-engine-audio-reference.md) | Engine order and firing-order acoustics, cross-plane vs flat-plane, per-family recording spec |
 | [`docs/20-licensed-vehicle-roster.md`](docs/20-licensed-vehicle-roster.md) | Real-manufacturer roster (Suzuki, Honda, BMW, Mercedes, Porsche, Toyota, Ford, Dodge) and the licensing flag |
+| [`docs/21-art-asset-delivery.md`](docs/21-art-asset-delivery.md) | The 96-model checklist, per-model delivery spec (sockets, LODs, pivots, collision), and sourcing guidance |
 | [`data/`](data/) | Working example content files and their JSON Schemas |
 | [`tools/validate_content.py`](tools/validate_content.py) | Dependency-free content validator, run by CI on every push |
 

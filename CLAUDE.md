@@ -14,7 +14,7 @@ Read this file first, then `PROMPT.md`, then the `docs/` file relevant to your t
 | **Product** | Highway Rush — an endless arcade highway-driving game for PC |
 | **State** | Specification complete. No engine project exists yet |
 | **Canonical spec** | `PROMPT.md` — 22 sections, self-contained |
-| **Reference manual** | `docs/00`–`docs/20` |
+| **Reference manual** | `docs/00`–`docs/21` |
 | **Content templates** | `data/` — one working example per type |
 | **Build order** | `PROMPT.md` §20, milestones M0–M18 |
 
@@ -129,6 +129,7 @@ spec does not allow, and explain why.
 | Input devices, force feedback, remapping | `docs/18-input-controls.md` |
 | Firing orders, engine acoustics, sound recording spec | `docs/19-engine-audio-reference.md` |
 | Real-manufacturer roster and the licensing flag | `docs/20-licensed-vehicle-roster.md` |
+| Model checklist, art delivery spec, sockets and LODs | `docs/21-art-asset-delivery.md` |
 
 ---
 
