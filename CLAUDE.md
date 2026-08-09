@@ -76,6 +76,13 @@ you do not understand it yet.
 - Pool anything spawned more than once per second. Zero heap allocation in the gameplay
   hot path.
 
+### Need placeholder vehicle geometry
+```bash
+python3 tools/generate_greybox.py data data/greybox
+```
+Correctly-dimensioned grey boxes with the full socket set, generated from the vehicle
+data. Enough for M1–M6; no purchased models required for either hard gate.
+
 ### After changing content in `data/`
 ```bash
 python3 tools/validate_content.py data

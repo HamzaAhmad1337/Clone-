@@ -30,10 +30,15 @@ def warn(path: Path, msg: str) -> None:
 
 
 def load_all(data_dir: Path) -> dict[Path, dict]:
-    """Parse every JSON file under data_dir except the schemas themselves."""
+    """Parse every authored JSON file under data_dir.
+
+    Skips schemas, and skips generated output (grey-box placeholders from
+    tools/generate_greybox.py) — those are derived artifacts, not content.
+    """
     docs: dict[Path, dict] = {}
+    generated = {"schemas", "greybox"}
     for path in sorted(data_dir.rglob("*.json")):
-        if "schemas" in path.parts:
+        if generated & set(path.parts):
             continue
         try:
             docs[path] = json.loads(path.read_text(encoding="utf-8"))

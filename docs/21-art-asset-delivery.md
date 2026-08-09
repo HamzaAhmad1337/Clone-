@@ -42,6 +42,26 @@ driving feel.
 Buy **one** decent car model for M6, to validate the pipeline in §3 end to end. Buy the
 rest at M12, when the game is proven.
 
+### 1.1 Grey-box placeholders — generated, free, available now
+
+```bash
+python3 tools/generate_greybox.py data data/greybox
+```
+
+Reads every file in `data/vehicles/` and emits, per vehicle:
+
+- `SM_<id>_LOD0.obj` — body and four wheels at **correct real-world dimensions**,
+  correct pivot (§3.1), correct axes and units
+- `SM_<id>_sockets.json` — all 27 sockets from §3.3, positioned
+
+This is enough geometry for **M1 through M6**. It costs nothing, carries no licensing
+exposure, and proves the data → mesh → socket pipeline works before a single model is
+bought. When a real mesh arrives, the socket layout in these files is the contract it
+has to match.
+
+Regenerate any time a vehicle's dimensions change. The output is not committed — it is
+derived from `data/vehicles/`.
+
 ---
 
 ## 2. Sourcing, and the licensing trap

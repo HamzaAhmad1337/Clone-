@@ -42,6 +42,9 @@ venv/
 Thumbs.db
 desktop.ini
 
+# Generated grey-box placeholders — derived from data/vehicles/
+data/greybox/
+
 # Local overrides — never commit machine-specific settings
 *.local.json
 LocalConfig/
